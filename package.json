@@ -1,7 +1,7 @@
 {
-  "name": "skripsi",
+  "name": "FisikaSma",
   "version": "1.0.0",
-  "description": "Skripsi management system",
+  "description": "FisikaSma management system",
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
