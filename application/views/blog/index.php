@@ -27,10 +27,19 @@
                     <th>Writer</th>
                     <th>Date</th>
                     <th>Total View</th>
+				    <th style="width: 90px">Status</th>
                     <th style="min-width: 20px" class="text-md-right">Action</th>
                 </tr>
                 </thead>
                 <tbody>
+                <?php
+                    $blogStatuses = [
+                        BlogModel::STATUS_ACTIVE => 'success',
+                        BlogModel::STATUS_INACTIVE => 'warning',
+                        BlogModel::STATUS_PENDING => 'default',
+                        BlogModel::STATUS_REJECTED => 'danger',
+                    ];
+                ?>
                 <?php $no = isset($blogs) ? ($blogs['current_page'] - 1) * $blogs['per_page'] : 0 ?>
                 <?php foreach ($blogs['data'] as $blog): ?>
                     <tr>
@@ -50,6 +59,11 @@
                             </label>
                             <?php endif; ?>
                         </td>
+                        <td>
+                            <span class="badge badge-<?= get_if_exist($blogStatuses, $blog['status'], 'primary') ?>">
+                                <?= $blog['status'] ?>
+                            </span>
+                        </td>
                         <td class="text-md-right">
                             <div class="dropdown">
                                 <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="actionButton" data-toggle="dropdown">
@@ -58,14 +72,26 @@
                                 <div class="dropdown-menu dropdown-menu-right row-blog"
                                      data-id="<?= $blog['id'] ?>"
                                      data-label="<?= $blog['title'] ?>">
-                                    <!-- <?php if(AuthorizationModel::isAuthorized(PERMISSION_BLOG_VIEW)): ?>
+                                    <?php if(AuthorizationModel::isAuthorized(PERMISSION_BLOG_VIEW)): ?>
                                         <a class="dropdown-item" href="<?= site_url('blog/view/' . $blog['id']) ?>">
                                             <i class="mdi mdi-eye-outline mr-2"></i> View
                                         </a>
-                                    <?php endif; ?> -->
+                                    <?php endif; ?>
                                     <?php if(AuthorizationModel::isAuthorized(PERMISSION_BLOG_EDIT)): ?>
                                         <a class="dropdown-item" href="<?= site_url('blog/edit/' . $blog['id']) ?>">
                                             <i class="mdi mdi-square-edit-outline mr-2"></i> Edit
+                                        </a>
+                                    <?php endif; ?>
+                                    <?php if(AuthorizationModel::isAuthorized(PERMISSION_BLOG_VALIDATE) && $blog['status'] == BlogModel::STATUS_PENDING): ?>
+                                        <a class="dropdown-item btn-validate" href="#modal-validate" data-toggle="modal"
+                                            data-id="<?= $blog['id'] ?>" data-label="<?= $blog['title'] ?>" data-title="Validate Blog"
+                                            data-url="<?= site_url('blog/validate-blog/' . $blog['id']) ?>" data-action="VALIDATED">
+                                            <i class="mdi mdi-check-outline mr-2"></i> Validate
+                                        </a>
+                                        <a class="dropdown-item btn-validate" data-action="REJECTED" data-id="<?= $blog['id'] ?>"
+                                            data-label="<?= $blog['title'] ?>" data-title="Reject Absent"
+                                            href="<?= site_url('blog/validate-blog/' . $blog['id']) ?>?redirect=<?= base_url(uri_string()) ?>">
+                                            <i class="mdi mdi-close mr-2"></i> Reject
                                         </a>
                                     <?php endif; ?>
                                     <?php if(AuthorizationModel::isAuthorized(PERMISSION_BLOG_DELETE)): ?>
@@ -97,4 +123,7 @@
 
 <?php if(AuthorizationModel::isAuthorized(PERMISSION_BLOG_DELETE)): ?>
     <?php $this->load->view('partials/modals/_delete') ?>
+<?php endif; ?>
+<?php if(AuthorizationModel::isAuthorized(PERMISSION_BLOG_VALIDATE)): ?>
+    <?php $this->load->view('partials/modals/_validate') ?>
 <?php endif; ?>

@@ -12,6 +12,7 @@ class Migration_Create_table_ref_categories extends CI_Migration
         $this->dbforge->add_field([
             'id' => ['type' => 'INT', 'unsigned' => TRUE, 'constraint' => 11, 'auto_increment' => TRUE],
             'category' => ['type' => 'VARCHAR', 'constraint' => '500'],
+            'slug' => ['type' => 'VARCHAR', 'constraint' => '500'],
             'description' => ['type' => 'TEXT', 'null' => TRUE],
             'is_deleted' => ['type' => 'INT', 'constraint' => 1, 'default' => 0],
             'created_at' => ['type' => 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP'],

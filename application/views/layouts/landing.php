@@ -13,7 +13,7 @@
   <meta name="base-url" content="<?= site_url() ?>">
   <meta name="user-id" content="<?= UserModel::loginData('id') ?>">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>Skripsi PFIS</title>
+  <title>Aktivitas PFIS</title>
 
   <!-- Bootstrap -->
   <link href="<?= base_url('assets/css/bootstrap.css') ?>" rel="stylesheet">
@@ -83,10 +83,13 @@ function buildTree(array $elements, $parentId = 0)
 $treeMenu = buildTree($menus);
 
 $data['blogPopulars'] = $this->blog->getAll([
+  'status' => BlogModel::STATUS_ACTIVE,
   'limit' => 3,
   'sort_by' => 'count_view',
   'order_method' => 'DESC'
 ]);
+$data['agendas'] = $this->agenda->getAll(['sort_by' => 'date', 'limit' => 5]);
+
 ?>
 <?php $this->load->view('layouts/landing/_header', compact('treeMenu')) ?>
 <div id="list-post-wrap">

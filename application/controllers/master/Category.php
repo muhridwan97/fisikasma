@@ -78,9 +78,11 @@ class Category extends App_Controller
         if ($this->validate()) {
             $category = $this->input->post('category');
             $description = $this->input->post('description');
+            $slug = slugify($category);
 
             $save = $this->category->create([
                 'category' => $category,
+                'slug' => $slug,
                 'description' => $description,
             ]);
 
@@ -117,11 +119,13 @@ class Category extends App_Controller
         if ($this->validate($this->_validation_rules($id))) {
             $category = $this->input->post('category');
             $description = $this->input->post('description');
+            $slug = slugify($category);
 
             $category = $this->category->getById($id);
 
             $save = $this->category->update([
                 'category' => $category,
+                'slug' => $slug,
                 'description' => $description,
             ], $id);
 
@@ -166,8 +170,9 @@ class Category extends App_Controller
             'category' => [
                 'trim', 'required', 'max_length[100]', ['category_name_exists', function ($name) use ($id) {
                     $this->form_validation->set_message('category_name_exists', 'The %s has been created before, try another');
+                    $slug = slugify($name);
                     return empty($this->category->getBy([
-                    	'ref_categories.category' => $name,
+                    	'ref_categories.slug' => $slug,
 						'ref_categories.id!=' => $id
 					]));
                 }]

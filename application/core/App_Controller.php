@@ -197,4 +197,15 @@ class App_Controller extends CI_Controller
         return true;
     }
 
+    /**
+     * Render data as json.
+     *
+     * @param $data
+     */
+    protected function render_json($data)
+    {
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
 }

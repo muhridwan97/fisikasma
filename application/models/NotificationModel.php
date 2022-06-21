@@ -17,6 +17,7 @@ class NotificationModel extends App_Model
     const SUBSCRIBE_SYLLABUS = 'syllabus';
     const SUBSCRIBE_TRAINING = 'training';
     const SUBSCRIBE_SKRIPSI = 'skripsi';
+    const SUBSCRIBE_BLOG = 'blog';
 
     const EVENT_CURRICULUM_MUTATION = 'curriculum-mutation';
     const EVENT_COURSE_MUTATION = 'course-mutation';
@@ -25,6 +26,9 @@ class NotificationModel extends App_Model
     const EVENT_EXAM_ASSIGNED = 'exam-assigned';
     const EVENT_EXAM_FINISHED = 'exam-finished';
     const EVENT_LOGBOOK_CREATED = 'logbook-created';
+	const EVENT_BLOG_VALIDATED = 'blog-validated';
+	const EVENT_BLOG_REJECTED = 'blog-rejected';
+	const EVENT_BLOG_CREATED = 'blog-created';
 
 	private $type = [Notify::WEB_PUSH];
 	private $users = [];

@@ -125,7 +125,7 @@ class Menu extends App_Controller
         $temp = [];
         foreach ($categories as $key => $category) {
             $temp=[
-                'url' => "landing/blog/".$category['category'],
+                'url' => "landing/blog/".$category['slug'],
                 'page_name' => "Blog category ".$category['category']
             ];
             $pages[] = $temp;
@@ -185,6 +185,15 @@ class Menu extends App_Controller
 
         $menu = $this->menu->getById($id);
         $pages = $this->page->getAll();
+        $categories = $this->category->getAll();
+        $temp = [];
+        foreach ($categories as $key => $category) {
+            $temp=[
+                'url' => "landing/blog/".$category['slug'],
+                'page_name' => "Blog category ".$category['category']
+            ];
+            $pages[] = $temp;
+        };
 
         $this->render('menu/edit', compact('menu', 'pages'));
     }

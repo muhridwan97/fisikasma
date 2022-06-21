@@ -39,12 +39,12 @@
 			<div class="card border-0 shadow-sm mb-3">
 				<div class="card-body d-flex justify-content-between align-items-center">
 					<div>
-						<h3 class="mb-0"><?= numerical($totalLesson) ?></h3>
-						<p class="text-fade mb-0">Total Skripsi</p>
+						<h3 class="mb-0"><?= numerical($totalBlog) ?></h3>
+						<p class="text-fade mb-0">Total Post</p>
 					</div>
 					<h1 class="mdi mdi-book-check-outline display-4 text-info" style="line-height: 1; flex-basis: 70px"></h1>
 				</div>
-				<a href="<?= site_url('syllabus/lesson') ?>" class="card-footer btn-link d-flex justify-content-between align-items-center bg-white py-2">
+				<a href="<?= site_url('blog') ?>" class="card-footer btn-link d-flex justify-content-between align-items-center bg-white py-2">
 					<span class="small">Show Detail</span>
 					<i class="mdi mdi-arrow-right"></i>
 				</a>
@@ -54,12 +54,12 @@
 			<div class="card border-0 shadow-sm mb-3">
 				<div class="card-body d-flex justify-content-between align-items-center">
 					<div>
-						<h3 class="mb-0"><?= numerical($totalLetterNumber) ?></h3>
-						<p class="text-fade mb-0">Total Surat</p>
+						<h3 class="mb-0"><?= numerical($totalAgenda) ?></h3>
+						<p class="text-fade mb-0">Total Agenda</p>
 					</div>
 					<h1 class="mdi mdi-ballot-outline display-4 text-success" style="line-height: 1; flex-basis: 70px"></h1>
 				</div>
-				<a href="<?= site_url('#') ?>" class="card-footer btn-link d-flex justify-content-between align-items-center bg-white py-2">
+				<a href="<?= site_url('agenda') ?>" class="card-footer btn-link d-flex justify-content-between align-items-center bg-white py-2">
 					<span class="small">Show Detail</span>
 					<i class="mdi mdi-arrow-right"></i>
 				</a>

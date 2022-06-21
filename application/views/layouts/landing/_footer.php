@@ -33,7 +33,7 @@
     function savelike(id_blogs) {
         $.ajax({
             type: "POST",
-            url: "https://skripsi.pkimuin-suka.ac.id/Welcome/simpan_like",
+            url: "https://akademik.pfisuin-suka.ac.id/Welcome/simpan_like",
             data: "id_blogs=" + id_blogs,
             success: function(response) {
                 $("#like").html(response + " Suka");
@@ -50,6 +50,7 @@
             searching: false,
             pageLength: 5,
             bLengthChange: false,
+            "scrollX": true
         });
     });
 </script>

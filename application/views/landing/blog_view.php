@@ -1,6 +1,126 @@
+<style>
+	/* html {
+  background: #f5f5f5;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+body {
+  margin: 30px auto 0 auto;
+  width: 450px;
+  font-size: 75%;
+} */
+
+	h3 {
+		margin-top: 30px;
+		font-size: 18px;
+		color: #555;
+	}
+
+	p {
+		padding-left: 10px;
+	}
+
+
+	/*
+ * Basic button style
+ */
+	.btn {
+		box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5) inset;
+		border-radius: 3px;
+		border: 1px solid;
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 8px;
+		position: relative;
+
+		font-size: 12px;
+		text-decoration: none;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	}
+
+	/*
+ * Counter button style
+ */
+	.btn-counter {
+		margin-right: 39px;
+	}
+
+	.btn-counter:after,
+	.btn-counter:hover:after {
+		text-shadow: none;
+	}
+
+	.btn-counter:after {
+		border-radius: 3px;
+		border: 1px solid #d3d3d3;
+		background-color: #eee;
+		padding: 0 8px;
+		color: #777;
+		content: attr(data-count);
+		left: 100%;
+		margin-left: 8px;
+		margin-right: -13px;
+		position: absolute;
+		top: -1px;
+	}
+
+	.btn-counter:before {
+		transform: rotate(45deg);
+		filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865476, M12=-0.7071067811865475, M21=0.7071067811865475, M22=0.7071067811865476, sizingMethod='auto expand');
+
+		background-color: #eee;
+		border: 1px solid #d3d3d3;
+		border-right: 0;
+		border-top: 0;
+		content: '';
+		position: absolute;
+		right: -13px;
+		top: 5px;
+		height: 6px;
+		width: 6px;
+		z-index: 1;
+		zoom: 1;
+	}
+
+	/*
+ * Custom styles
+ */
+	.btn {
+		background-color: #dbdbdb;
+		border-color: #bbb;
+		color: #666;
+	}
+
+	.btn:hover,
+	.btn.active {
+		text-shadow: 0 1px 0 #b12f27;
+		background-color: #f64136;
+		border-color: #b12f27;
+	}
+
+	.btn:active {
+		box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2) inset;
+	}
+
+	.btn span {
+		color: #f64136;
+	}
+
+	.btn:hover,
+	.btn:hover span,
+	.btn.active,
+	.btn.active span {
+		color: #eeeeee;
+	}
+
+	.btn:active span {
+		color: #b12f27;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+	}
+</style>
 <div class="col-md-9 list-into-single">
 	<div>
-		<p class="list-page-single"><a href="<?= base_url() ?>">Home</a></p>>><p class="list-page-single"><a href="<?= base_url('/landing/blog/').$blog['category'] ?>"><?=$blog['category']?></a></p>
+		<p class="list-page-single"><a href="<?= base_url() ?>">Home</a></p>>><p class="list-page-single"><a href="<?= base_url('/landing/blog/') . $blog['category'] ?>"><?= $blog['category'] ?></a></p>
 	</div>
 </div>
 <div class="col-md-9 single-post-posts" style="padding-bottom: 20px">
@@ -22,6 +142,13 @@
 			<span class="text-created-post"><?= $blog['count_view'] ?></span>
 		</p>
 	</div>
+	<?php if(UserModel::loginData('id', '-1') != '-1'): ?>
+	<div class="detail-post">
+		<p>
+			<a href="#" title="Love it" class="btn btn-counter <?= $isLike ? 'active':''?>" data-count="<?= $countLike ?>" data-id="<?= $blog['id'] ?>"><span>&#x2764;</span></a>
+		</p>
+	</div>
+	<?php endif; ?>
 	<?php if (!empty($blog['attachment'])) : ?>
 		<a href="<?= base_url() . 'uploads/' . $blog['attachment'] ?>">
 			<button class="btn btn-primary">Lihat Lampiran</button>
@@ -47,10 +174,9 @@
 				<h3>POST TERKAIT</h3>
 				<div class="underscore" style="margin-left:0px;margin-left:0px;margin-bottom:15px;"></div>
 				<ul id="terkait-post-list">
-					<li><a href="kuliah-via-daring-hanya-formalitas-2020-06-2807-45-54.html">Kuliah via Daring, Hanya Formalitas?</a></li>
-					<li><a href="gangguan-mental-pada-masa-pandemi2020-10-0601-35-38.html">Gangguan Mental Pada Masa Pandemi</a></li>
-					<li><a href="omnibus-law-bentuk-nyata-fungsi-hukum-tidak-lagi-sebagai-pelaksana-kehendak-rakyat2020-10-0609-48-16.html">OMNIBUS LAW : BENTUK NYATA FUNGSI HUKUM TIDAK LAGI SEBAGAI PELAKSANA KEHENDAK RAKYAT</a></li>
-					<li><a href="renjana-tak-bertepi2020-10-2006-46-50.html">Renjana Tak Bertepi</a></li>
+					<?php foreach ($blogTerkaits as $key => $blogTerkait) : ?>
+						<li><a href="<?= base_url('landing/blog-view/' . $blogTerkait['id']) ?>"><?= $blogTerkait['title'] ?></a></li>
+					<?php endforeach; ?>
 				</ul>
 			</div>
 		</div>
@@ -59,14 +185,50 @@
 				<h3>POST TEBARU</h3>
 				<div class="underscore" style="margin-left:0px;margin-left:0px;margin-bottom:15px;"></div>
 				<ul id="terbaru-post-list">
-					<li><a href="membangun-generasi-melalui-pendidikan-sebagai-investasi-masa-depan-yang-lebih-cerah2022-04-2702-16-42.html">Membangun Generasi Melalui Pendidikan Sebagai Investasi Masa Depan Yang Lebih Cerah</a></li>
-					<li><a href="bukan-puasa-yang-bikin-jerawat-datang-ayo-intip-penyebabnya-2022-04-2503-26-05.html">Bukan Puasa yang Bikin Jerawat Datang! Ayo Intip Penyebabnya!</a></li>
-					<li><a href="sosok-kartini-masa-kini-bagi-kemajuan-pendidikan-dan-perempuan2022-04-2423-36-28.html">Sosok Kartini Masa Kini Bagi Kemajuan Pendidikan dan Perempuan</a></li>
-					<li><a href="menuju-indonesia-maju-dengan-pendidikan-anak-usia-dini2022-04-2103-03-13.html">Menuju Indonesia maju dengan pendidikan anak usia dini</a></li>
-					<li><a href="rangkulan-untuk-para-penyintas-kekerasan-seksual2022-04-1404-21-39.html">Rangkulan untuk Para Penyintas Kekerasan Seksual</a></li>
+					<?php foreach ($blogTerbarus as $key => $blogTerbaru) : ?>
+						<li><a href="<?= base_url('landing/blog-view/' . $blogTerbaru['id']) ?>"><?= $blogTerbaru['title'] ?></a></li>
+					<?php endforeach; ?>
 				</ul>
 			</div>
 		</div>
 	</div>
 
 </div>
+<script>
+	
+	$('.btn-counter').on('click', function(event, count) {
+		event.preventDefault();
+
+		var $this = $(this),
+			count = $this.attr('data-count'),
+			active = $this.hasClass('active'),
+			multiple = $this.hasClass('multiple-count');
+
+		// First method, allows to add custom function
+		// Use when you want to do an ajax request
+		if (multiple) {
+		$this.attr('data-count', ++count);
+		// Your code here
+		} else {
+		$.ajax({
+            type: "POST",
+            url: document.head.querySelector('meta[name="base-url"]').content + "like/"+ (active ? "ajax_set_unlike" : "ajax_set_like"),
+            data: {blogId: $this.attr('data-id')},
+            cache: true,
+            success: function (data) {
+				if (data.message) {
+					$this.attr('data-count', active ? --count : ++count).toggleClass('active');
+				}
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText + ' ' + status + ' ' + error);
+            }
+        });
+		}
+
+		// Second method, use when ... I dunno when but it looks cool and that's why it is here
+		// $.fn.noop = $.noop;
+		// $this.attr('data-count', !active || multiple ? ++count : --count)[multiple ? 'noop' : 'toggleClass']('active');
+
+	});
+</script>

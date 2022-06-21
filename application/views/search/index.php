@@ -42,7 +42,7 @@
               						<?= substr(strip_tags($blog['body']), 0, 110) . "..." ?>
 								</p>
 								<span class="text-fade small">
-									<?= $blog['total_category'] ?> Category - Last updated at <?= format_date(if_empty($blog['updated_at'], $blog['created_at']), 'd M Y H:i') ?>
+									<?= $blog['category'] ?> Category - Last updated at <?= format_date(if_empty($blog['updated_at'], $blog['created_at']), 'd M Y H:i') ?>
 								</span>
 							</div>
 							<div>

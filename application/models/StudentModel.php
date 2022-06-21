@@ -8,6 +8,14 @@ class StudentModel extends App_Model
     
     const STATUS_ACTIVE = 'ACTIVE';
     const STATUS_INACTIVE = 'INACTIVE';
+
+    public function __construct()
+    {
+        if ($this->config->item('sso_enable')) {
+            $this->table = env('DB_LETTER_DATABASE') . '.ref_students';
+            self::$tableStudent = env('DB_LETTER_DATABASE') . '.ref_students';
+        }
+    }
     /**
      * Get base query of table.
      *

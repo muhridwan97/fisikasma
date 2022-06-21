@@ -29,10 +29,13 @@
                           placeholder="Enter body"><?= set_value('body') ?></textarea>
                 <?= form_error('body') ?>
             </div>
+            <?php if(AuthorizationModel::isAuthorized(PERMISSION_ALL_ACCESS)!=true && !AuthorizationModel::isAuthorized(PERMISSION_BLOG_VALIDATE)): ?>
+                <input type="hidden" name="user" id="user" value="<?= UserModel::loginData('id') ?>">
+            <?php else: ?>
             <div class="form-group">
                 <label for="user">Penulis</label>
                 <select class="form-control select2" name="user" id="user" required data-placeholder="Select Writer">
-                    <option value="">-- Select Dosen --</option>
+                    <option value="">-- Select Penulis --</option>
                     <?php foreach ($users as $user): ?>
                         <option value="<?= $user['id'] ?>"<?= set_select('user') ?>>
                             <?= $user['name'] ?>
@@ -41,6 +44,7 @@
                 </select>
                 <?= form_error('user') ?>
             </div>
+            <?php endif; ?>
             <div class="form-group">
                 <label for="date">Tanggal</label>
                 <input type="text" class="form-control datepicker" id="date" name="date" required

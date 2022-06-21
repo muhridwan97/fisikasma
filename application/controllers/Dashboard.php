@@ -5,8 +5,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property LecturerModel $lecturer
  * @property StudentModel $student
  * @property LessonModel $lesson
- * @property LetterNumberModel $letterNumber
- * @property ExamExerciseModel $examExercise
+ * @property BlogModel $blog
+ * @property AgendaModel $agenda
  * Class Dashboard
  */
 class Dashboard extends App_Controller
@@ -19,6 +19,8 @@ class Dashboard extends App_Controller
 		parent::__construct();
 		$this->load->model('LecturerModel', 'lecturer');
 		$this->load->model('StudentModel', 'student');
+		$this->load->model('BlogModel', 'blog');
+		$this->load->model('AgendaModel', 'agenda');
 	}
 
 	/**
@@ -29,8 +31,8 @@ class Dashboard extends App_Controller
 		$data = [
 			'totalLecturer' => $this->lecturer->getBy([], 'COUNT'),
 			'totalStudent' => $this->student->getBy([], 'COUNT'),
-			'totalLesson' => [],
-			'totalLetterNumber' => [],
+			'totalBlog' => $this->blog->getBy([], 'COUNT'),
+			'totalAgenda' => $this->agenda->getBy([], 'COUNT'),
 		];
 
 		$data['latestExams'] =  [];
