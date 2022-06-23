@@ -154,9 +154,11 @@ body {
 			<button class="btn btn-primary">Lihat Lampiran</button>
 		</a>
 	<?php endif; ?>
+	<?php if (!empty($blog['photo'])) : ?>
 	<div id="img-post-wrap">
 		<img class="img-responsive img-post" src="<?= asset_url($blog['photo']) ?>" />
 	</div>
+	<?php endif; ?>
 	<p id="isi-post">
 	<div style="text-align:justify">
 		<?= $blog['body'] ?>

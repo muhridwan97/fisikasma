@@ -2,7 +2,7 @@
 	<div class="container">
 		<div id="nav-header-up" class="navbar-header">
 			<div id="navbar-title" class="navbar-brand" href="#">
-				<i class="glyphicon glyphicon-education icon-navbar-up"></i><b>AKADEMIK MAHASISWA PFIS UIN SUNAN KALIJAGA</b>
+				<i class="glyphicon glyphicon-book icon-navbar-up"></i><b>FISIKA SMA MAHASISWA PFIS UIN SUNAN KALIJAGA</b>
 			</div>
 
 		</div>
@@ -32,7 +32,7 @@
           </div> -->
 				<div class="col-sm-12" style="text-align: right;padding:0px">
 					<!-- <p class="text-contact"><i class="glyphicon glyphicon-home" style="margin-right:5px"></i>Jl. Marsda Adisucipto Yogyakarta</p> -->
-					<form action="<?= base_url('landing/search')?>" method="GET">
+					<form action="<?= base_url('landing/search') ?>" method="GET">
 						<input id="cari" type="text" name="cari" placeholder="Cari disini" style="position: relative;z-index: 999">
 
 					</form>
@@ -59,16 +59,16 @@
 							foreach ($treeMenu as $arr) {
 								if ($deep == 0) {
 									echo '<li>';
-								}else{
-									if(isset($arr['sub_menu'])){
+								} else {
+									if (isset($arr['sub_menu'])) {
 										echo '<li class="dropdown-submenu">';
-									}else{
+									} else {
 										echo '<li>';
 									}
 								}
 								if (isset($arr['sub_menu'])) {
 									if ($deep != 0) {
-										echo '<a href="'.$arr['url'].'">' . $arr['menu_name'] . '</a>';
+										echo '<a href="' . $arr['url'] . '">' . $arr['menu_name'] . '</a>';
 									} else {
 										echo '<a class="dropdown-toggle" data-toggle="dropdown" href="#">' . $arr['menu_name'] . ' <span class="caret"></span></a>';
 									}
@@ -77,7 +77,7 @@
 									doOutputList($arr['sub_menu'], $deep + 1);
 								} else {
 									if ($deep != 0) {
-										echo '<a href="'.$arr['url'].'">' . $arr['menu_name'] . '</a>';
+										echo '<a href="' . $arr['url'] . '">' . $arr['menu_name'] . '</a>';
 									} else {
 										echo '<a class="dropdown-toggle" data-toggle="dropdown" href="#">' . $arr['menu_name'] . ' <span class="caret"></span></a>';
 									}
@@ -95,7 +95,12 @@
 
 					</ul>
 					<ul class="nav navbar-nav navbar-right menu-nav-bottom nav-log-search">
-						<li><a href="<?= base_url('dashboard') ?>" id="login-navbar" ><span class="glyphicon glyphicon-log-in" style="margin-right:5px"></span> Login</a></li>
+						<li><a href="<?= base_url('dashboard') ?>" id="login-navbar"><span class="glyphicon glyphicon-log-in" style="margin-right:5px"></span>
+								<?php if (UserModel::loginData('id', '-1') != '-1') : ?>
+									Dashboard
+								<?php else : ?>
+									Login
+								<?php endif; ?></a></li>
 					</ul>
 
 					</ul>

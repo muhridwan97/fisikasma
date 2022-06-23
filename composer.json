@@ -12,10 +12,12 @@
 	},
 	"require": {
 		"php": ">=7.2",
+		"guzzlehttp/guzzle": "^6.5",
 		"dompdf/dompdf": "0.8.3",
 		"ext-json": "*",
 		"pusher/pusher-php-server": "^4.1",
 		"phpoffice/phpspreadsheet": "^1.12",
+		"aws/aws-sdk-php": "^3.138",
      	"ext-fileinfo": "*"
     },
 	"suggest": {

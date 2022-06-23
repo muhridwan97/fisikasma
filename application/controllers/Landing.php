@@ -50,7 +50,7 @@ class Landing extends App_Controller
 	{
 		$banners = $this->banner->getAll(['sort_by' => 'id']);
         $agendas = $this->agenda->getAll(['sort_by' => 'date', 'limit' => 7]);
-        $blogTerbarus = $this->blog->getAll([
+        $newBlogs = $this->blog->getAll([
             'status' => BlogModel::STATUS_ACTIVE,
             'limit' => 5,
             'order_method' => 'DESC'
@@ -58,7 +58,7 @@ class Landing extends App_Controller
         $bestWriters = $this->blog->getBestWriter();
         $bestBlogs = $this->blog->getBestBlog();
 
-		$this->render('landing/index', compact('banners', 'agendas', 'blogTerbarus', 'bestWriters', 'bestBlogs'));
+		$this->render('landing/index', compact('banners', 'agendas', 'newBlogs', 'bestWriters', 'bestBlogs'));
 	}
 
 	public function page($id)
